@@ -1,7 +1,8 @@
--- Say hello
+factorial 0 = 1
+factorial n =
+    if n > 0
+        then n * factorial(n - 1)
+    else
+        error "Factional of negative number!"
 
-module Main where
-import Prelude
-
-main = do av <- getArgs
-    putStrLn $ "Hi, " ++ (av !! 0) ++ " !"
+main = print (factorial (-2))
