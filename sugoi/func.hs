@@ -47,3 +47,23 @@ bmiTell bmi
   | bmi <= 25.0 = "you are normal"
   | bmi <= 30.0 = "you are fat"
   | otherwise = "You are whale"
+
+bmiTell' :: Double -> Double -> String
+bmiTell' weight height
+  | bmi <= 18.5 = "you are underweight"
+  | bmi <= 25.0 = "you are normal."
+  | bmi <= 30.0 = "you are fat"
+  | otherwise = "you are too fat. YOU whale?"
+  where bmi = weight / height ^ 2
+
+max' :: (Ord a) => a -> a -> a
+max' a b
+  | a <= b = b
+  | otherwise = a
+
+--- 中置記法は定義にも使える
+myCompare :: (Ord a) => a -> a -> Ordering
+y `myCompare` x
+  | x == y = EQ
+  | x <= y = LT
+  | otherwise = GT
