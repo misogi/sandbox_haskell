@@ -30,3 +30,20 @@ third (_, _, z) = z
 head' :: [a] -> a
 head' [] = error "empty"
 head' (x:_) = x
+
+tell :: (Show a) => [a] -> String
+tell [] = "list empty"
+tell (x:[]) = "list has one Llement: " ++ show x
+tell (x:y:[]) = "The list has tow" ++ show x ++ " and " ++ show y
+tell (x:y:_) = "This list long" ++ show x ++ " and " ++ show y
+
+firstLetter :: String -> String
+firstLetter "" = "Empty"
+firstLetter all@(x:xs) = "THe first of " ++ all ++ " is :" ++ [x]
+
+bmiTell :: Double -> String
+bmiTell bmi
+  | bmi <= 18.5 = "You're underweight"
+  | bmi <= 25.0 = "you are normal"
+  | bmi <= 30.0 = "you are fat"
+  | otherwise = "You are whale"
