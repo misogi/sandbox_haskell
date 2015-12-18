@@ -31,6 +31,11 @@ head' :: [a] -> a
 head' [] = error "empty"
 head' (x:_) = x
 
+-- case を使える
+head'' :: [a] -> a
+head'' xs = case xs of [] -> error "No head for empty list"
+                       (x:_) -> x
+
 tell :: (Show a) => [a] -> String
 tell [] = "list empty"
 tell (x:[]) = "list has one Llement: " ++ show x
@@ -74,3 +79,28 @@ initials :: String -> String -> String
 initials firstname lastname = [f] ++ ". " ++ [l] ++ "."
   where (f:_) = firstname
         (l:_) = lastname
+
+calcBmis :: [(Double, Double)] -> [Double]
+calcBmis xs = [bmi w h| (w, h) <- xs]
+  where bmi weight height = weight / height ^ 2
+
+calcBmis' :: [(Double, Double)] -> [Double]
+calcBmis' xs = [bmi | (w, h)<- xs, let bmi = w / h ^ 2 ]
+
+cylinder :: Double -> Double -> Double
+cylinder r h =
+  let sideArea = 2 * pi * r * h
+      topArea = pi * r ^ 2
+  in sideArea + 2 * topArea
+
+describeList :: [a] -> String
+describeList ls = "The list is "
+  ++ case ls of [] -> "empty"
+                [x] -> "single"
+                xs -> "longer"
+
+describeList' :: [a] -> String
+describeList' ls = "The list is "
+  ++ what ls
+  where what [] = "empty.."
+        what xs = "longer.."
