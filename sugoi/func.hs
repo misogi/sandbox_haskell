@@ -50,11 +50,12 @@ bmiTell bmi
 
 bmiTell' :: Double -> Double -> String
 bmiTell' weight height
-  | bmi <= 18.5 = "you are underweight"
-  | bmi <= 25.0 = "you are normal."
+  | bmi <= skinny = "you are underweight"
+  | bmi <= normal = "you are normal."
   | bmi <= 30.0 = "you are fat"
   | otherwise = "you are too fat. YOU whale?"
   where bmi = weight / height ^ 2
+        (skinny, normal) = (18.5, 25.0)
 
 max' :: (Ord a) => a -> a -> a
 max' a b
@@ -67,3 +68,9 @@ y `myCompare` x
   | x == y = EQ
   | x <= y = LT
   | otherwise = GT
+
+initials :: String -> String -> String
+
+initials firstname lastname = [f] ++ ". " ++ [l] ++ "."
+  where (f:_) = firstname
+        (l:_) = lastname
