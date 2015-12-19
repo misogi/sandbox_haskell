@@ -31,3 +31,13 @@ filter' _ [] = []
 filter' p (x:xs)
   | p x = x : filter' p xs
   | otherwise = filter' p xs
+
+-- filter' (<15) (filter even [1..20])
+-- [x | x <- [1..20], x < 15, even x]
+
+quicksort :: (Ord a) => [a] -> [a]
+quicksort [] = []
+quicksort (x:xs) =
+  let smallOrEqual = filter (<= x) xs
+      larger = filter (> x) xs
+  in quicksort smallOrEqual ++ [x] ++ quicksort larger
