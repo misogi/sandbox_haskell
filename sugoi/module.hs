@@ -21,3 +21,15 @@ digitSum = sum . map digitToInt . show
 
 firstTo40 :: Int -> Maybe Int
 firstTo40 n = find (\x -> digitSum x == n) [1..]
+
+phoneBook =
+  [
+    ("Betty", "555-2938"),
+    ("bonnie", "223-2928")
+  ]
+
+findKey :: (Eq k) => k -> [(k, v)] -> Maybe v
+findKey key [] = Nothing
+findKey key ((k,v):xs)
+  | key == k = Just v
+  | otherwise = findKey key xs
