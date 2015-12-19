@@ -71,3 +71,9 @@ sum' xs = foldl (\acc x -> acc + x) 0 xs
 
 sum'' :: (Num a) => [a] -> a
 sum'' = foldl (+) 0
+
+mapl :: (a -> b) -> [a] -> [b]
+mapl f xs = foldr (\x acc -> f x : acc) [] xs
+
+mapr :: (a -> b) -> [a] -> [b]
+mapr f xs = foldl (\acc x -> acc ++ [f x]) [] xs
