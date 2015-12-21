@@ -16,3 +16,9 @@ instance YesNo [a] where
 instance YesNo (Maybe a) where
   yesno (Just _) = True
   yesno Nothing = False
+
+yesnoIf :: (YesNo y) => y -> a -> a -> a
+yesnoIf yesnoVal yesResult noResult =
+  if yesno yesnoVal
+    then yesResult
+    else noResult
