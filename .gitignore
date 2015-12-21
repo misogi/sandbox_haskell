@@ -9,3 +9,4 @@ cabal-dev
 *.sublime-workspace
 *.exe
 Main
+helloworld
