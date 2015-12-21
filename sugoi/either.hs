@@ -21,3 +21,7 @@ lockers = Map.fromList
   ,(101, (Free, "JAH3I"))
   ,(102, (Free, "IQSA9"))
   ]
+
+infixr 5 :-:
+data List a = Empty | a :-: (List a)
+  deriving (Show, Read, Eq, Ord)
