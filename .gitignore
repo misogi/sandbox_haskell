@@ -8,3 +8,4 @@ cabal-dev
 *.sublime-project
 *.sublime-workspace
 *.exe
+Main
