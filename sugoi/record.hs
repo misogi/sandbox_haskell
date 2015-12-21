@@ -26,3 +26,11 @@ dotProd :: (Num a) => Vector a -> Vector a -> a
 
 vmult :: (Num a) => Vector a -> a -> Vector a
 (Vector i j k) `vmult` m = Vector (i*m) (j*m) (k*m)
+
+data Day = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
+  deriving (Eq, Ord, Show, Read, Bounded, Enum)
+
+-- minBound :: Day
+-- maxBound :: Day
+-- sacc Monday
+-- pred Saturday
