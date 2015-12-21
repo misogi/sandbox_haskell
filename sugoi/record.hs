@@ -4,7 +4,7 @@ data Person = Person {
   , age :: Int
   , height :: Float
   , phoneNumber :: String
-  , flavor ::String } deriving (Show)
+  , flavor ::String } deriving (Show, Eq)
 
 data Car = Car {
   company :: String
