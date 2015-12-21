@@ -1,5 +1,7 @@
-data Person = Person String String Int Float String String
-  deriving (Show)
-
-firstName :: Person -> String
-firstName (Person firstName _ _ _ _ _) = firstName
+data Person = Person {
+  firstName :: String
+  , lastName :: String
+  , age :: Int
+  , height :: Float
+  , phoneNumber :: String
+  , flavor ::String } deriving (Show)
