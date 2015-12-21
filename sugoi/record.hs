@@ -1,10 +1,10 @@
 data Person = Person {
   firstName :: String
   , lastName :: String
-  , age :: Int
-  , height :: Float
-  , phoneNumber :: String
-  , flavor ::String } deriving (Show, Eq)
+  , age :: Int } deriving (Show, Eq, Read)
+
+mysteryDude = "Person {firstName=\"michael\"" ++
+  ", lastName=\"Dia\", age=43}"
 
 data Car = Car {
   company :: String
