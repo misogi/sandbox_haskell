@@ -22,3 +22,12 @@ yesnoIf yesnoVal yesResult noResult =
   if yesno yesnoVal
     then yesResult
     else noResult
+
+-- 7.10
+
+class Functor' f where
+  fmap' :: (a -> b) -> f a -> f b
+
+instance Functor' Maybe where
+  fmap' f (Just x) = Just (f x)
+  fmap' f Nothing = Nothing
