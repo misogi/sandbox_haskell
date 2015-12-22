@@ -18,6 +18,7 @@ main = do
 
 add :: [String] -> IO ()
 add [fileName, todoItem] = appendFile fileName (todoItem ++ "\n")
+add _ = putStrLn "The add command 2 args"
 
 view :: [String] -> IO ()
 view [fileName] = do
