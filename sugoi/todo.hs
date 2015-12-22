@@ -10,6 +10,7 @@ dispatch :: String -> [String] -> IO ()
 dispatch "add" = add
 dispatch "view" = view
 dispatch "remove" = remove
+dispatch command = doesntExist command
 
 main = do
   (command:argList) <- getArgs
@@ -49,3 +50,6 @@ remove [fileName, numberString] = do
       hClose tempHandle
       removeFile fileName
       renameFile tempName fileName)
+
+doesntExist command _ =
+  putStrLn $ "The " ++ command ++ " command doesnt exist"
