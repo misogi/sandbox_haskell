@@ -7,3 +7,6 @@ main = do
   contents <- hGetContents handle
   putStr contents
   hClose handle
+  -- readFile はハンドルを自動で閉じる
+  cont2 <- readFile "haiku.txt"
+  putStr cont2
