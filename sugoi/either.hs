@@ -1,4 +1,6 @@
 import qualified Data.Map as Map
+import Data.Monoid
+
 data LockerState = Taken | Free deriving (Show, Eq)
 
 type Code = String
@@ -55,3 +57,10 @@ treeElem x (Node a left right)
 
 nums = [8,6,4,1,7,3,5]
 numsTree = foldr treeInsert EmptyTree nums
+
+-- 12.4
+-- foldl (+) 0 numsTree
+instance Foldable Tree where
+  foldMap f EmptyTree = mempty
+  foldMap f (Node x l r) =
+    foldMap f l `mappend` f x `mappend` foldMap f r
