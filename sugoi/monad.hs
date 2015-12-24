@@ -19,4 +19,20 @@ landRight n (left, right)
   | abs (left - (right + n)) < 4 = Just (left, right + n)
   | otherwise                    = Nothing
 
+banana :: Pole -> Maybe Pole
+banana _ = Nothing
+
 x -: f = f x
+
+-- 13.5
+
+foo :: Maybe String
+foo = Just 3 >>= (\x ->
+      Just "!" >>= (\y ->
+      Just (show x ++ y)))
+
+foo' :: Maybe String
+foo' = do
+  x <- Just 3
+  y <- Just "!"
+  Just (show x ++ y)
