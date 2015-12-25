@@ -18,3 +18,12 @@ readMaybe st =
   case reads st of
     [(x, "")] -> Just x
     _ -> Nothing
+
+-- 14.7
+
+inMany :: Int -> Int -> [Int]
+inMany x start = return start >>= foldr (<=<)
+  return (replicate x move)
+
+move :: Int -> [Int]
+move x = replicate x 1
