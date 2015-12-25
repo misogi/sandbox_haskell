@@ -32,3 +32,11 @@ multWithLog = do
   b <- logNumber 5
   tell ["Gonna multiply these two"]
   return (a*b)
+
+gcd' :: Int -> Int -> Writer [String] Int
+gcd' a b
+  | b == 0 = do
+    writer (a, ["Finished with " ++ show a])
+  | otherwise = do
+    tell [show a ++ " mod " ++ show b ++ " = " ++ show (a `mod` b)]
+    gcd' b (a `mod` b)
