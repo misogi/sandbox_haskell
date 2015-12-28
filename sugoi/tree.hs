@@ -1,4 +1,6 @@
 -- 15.1
+-- 15.4
+
 data Tree a = Empty | Node a (Tree a) (Tree a)
   deriving (Show)
 
@@ -48,15 +50,18 @@ data Crumb a = LeftCrumb a (Tree a)
 type Breadcrumbs a = [Crumb a]
 type Zipper a = (Tree a, Breadcrumbs a)
 
-goLeft :: (Tree a, Breadcrumbs a) -> (Tree a, Breadcrumbs a)
-goLeft (Node x l r, bs) = (l, LeftCrumb x r:bs)
+goLeft :: Zipper a -> Maybe (Zipper a)
+goLeft (Node x l r, bs) = Just (l, LeftCrumb x r:bs)
+goLeft (Empty, _) = Nothing
 
-goRight :: (Tree a, Breadcrumbs a) -> (Tree a, Breadcrumbs a)
-goRight (Node x l r, bs) = (r, RightCrumb x l:bs)
+goRight :: Zipper a -> Maybe (Zipper a)
+goRight (Node x l r, bs) = Just (r, RightCrumb x l:bs)
+goRight (Empty, _) = Nothing
 
-goUp :: (Tree a, Breadcrumbs a) -> (Tree a, Breadcrumbs a)
-goUp (t, LeftCrumb x r:bs) = (Node x t r, bs)
-goUp (t, RightCrumb x l:bs) = (Node x l t, bs)
+goUp :: Zipper a -> Maybe (Zipper a)
+goUp (t, LeftCrumb x r:bs) = Just (Node x t r, bs)
+goUp (t, RightCrumb x l:bs) = Just (Node x l t, bs)
+goUp (_, []) = Nothing
 
 modify :: (a -> a) -> Zipper a -> Zipper a
 modify f (Node x l r, bs) = (Node (f x) l r, bs)
@@ -67,14 +72,21 @@ attach t (_, bs) = (t, bs)
 
 topMost :: Zipper a -> Zipper a
 topMost (t, []) = (t, [])
-topMost z = topMost (goUp z)
+topMost z =
+  let Just upz = (goUp z)
+  in topMost upz
 
 x -: f = f x
 
-gogo = goLeft $ goRight (freeTree, [])
-gogo2 = (freeTree, []) -: goRight -: goLeft -: goRight -: goUp
-newFocus = (freeTree, []) -: goLeft -: goRight -: modify (\_ -> 'P')
-newFocus2 = modify (\_ -> 'X') (goUp newFocus)
-farLeft = (freeTree, []) -: goLeft -: goLeft -: goLeft -: goLeft
-newFocus3 = farLeft -: attach (Node 'Z' Empty Empty)
-newFocus4 = newFocus3 -: topMost
+gogo = return (freeTree, []) >>= goLeft
+
+coolTree = Node 1 Empty (Node 3 Empty Empty)
+focus1 = return (coolTree, []) >>= goRight >>= goRight
+focus2 = focus1 >>= goRight
+
+-- gogo2 = (freeTree, []) -: goRight -: goLeft -: goRight -: goUp
+-- newFocus = (freeTree, []) -: goLeft -: goRight -: modify (\_ -> 'P')
+-- newFocus2 = modify (\_ -> 'X') (goUp newFocus)
+-- farLeft = (freeTree, []) -: goLeft -: goLeft -: goLeft -: goLeft
+-- newFocus3 = farLeft -: attach (Node 'Z' Empty Empty)
+-- newFocus4 = newFocus3 -: topMost
