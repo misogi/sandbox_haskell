@@ -35,7 +35,21 @@ nameIs :: Name -> FSItem -> Bool
 nameIs name (Folder folderName _) = name == folderName
 nameIs name (File fileName _) = name == fileName
 
+fsRename :: Name -> FSZipper -> FSZipper
+fsRename newName (Folder name items, bs) = (Folder newName items, bs)
+fsRename newName (File name dat, bs) = (File newName dat, bs)
+
+fsNewFile :: FSItem -> FSZipper -> FSZipper
+fsNewFile item (Folder folderName items, bs) =
+  (Folder folderName (item:items), bs)
+
 newFocus =
   (myDisk, []) -: fsTo "pics" -: fsTo "skull_man(scary).bmp"
 
-newFocus2 = newFocus -: fsUp -: fsTo "watermelon_smash.gif" 
+newFocus2 = newFocus -: fsUp -: fsTo "watermelon_smash.gif"
+
+newFocus4 =
+  (myDisk, []) -: fsTo "pics" -: fsRename "cspi" -: fsUp
+
+newFocus3 =
+  (myDisk, []) -: fsTo "pics" -: fsNewFile (File "heh.jpg" "lol") -: fsUp
